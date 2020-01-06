@@ -1,0 +1,25 @@
+dist: xenial
+
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
+before_script:
+  - psql -U postgres -c "create user decide password 'decide'"
+  - psql -U postgres -c "create database test_decide owner decide"
+  - psql -U postgres -c "ALTER USER decide CREATEDB"
+language: python
+python:
+  - "3.6"
+  - "3.3"
+install:
+  - pip install -r requirements.txt
+script:
+  - cd decide
+  - python ./manage.py test --keepdb -v2
+deploy:
+  provider: heroku
+  app: heroku-meet-travis
+  strategy: git
+  api_key:
+    secure: QE34wOtzDxvrMmgTN6blMeunNY4CYmkaVZV0xnvXjcFxZcL+9nekXMX/1enNWaaSNnP157kSL5XaB09bH/GV2RmY5Q9zPSqieBucMNxZiIu66/CBI/42iixMLVFfydDBlIH+t91TLg9f9Y/Kpmtp4ylQwCgUh7egHZ1HWoVsBxinm9ViRI7h+Y8b5L+ke1Jrw1a5l1HU+df6ZHchlQUcCLSYMCWfEpH7BKp/l7B7YRxG3X4vnEZ3t2Sdj10MGxL9gUTZIWoF+LgaSVHHuay1q3c2XwlZ1EHn5JN0FBdKA8zOgTPPX2krk3v6NEHNZf0/N45ZZbgmPilmi3Tmfi9oYgIZolOkcYynxXKWv4z4Su9Cp07gk0loTmBQYKzXzbAd5uuMAH4g9x/g5IW/djpEQ8i42tQZy60M+Wd2QtkNgsaRhm0OhTIlBbtZD7/IqlNUUXLZdYOQnMehV4UsGzHQk6JMgaW6qG5pj/kDQA5XAzZa7Za9LZrUELQDd0B+Be3lssN35l+MrA3u8PgbJSfsXY4LCQ7GHV/x46ZH8EfmrSkkTr18pr9TegPDyk/n7Wn+JAnxB+jDvQAJEUupNaXqEY1nUex1yO3oZQSDlYu1qlker6AgNUI1PXvb0QzQlfzYhjCHIoGD85n101qos7xZUT0yUnANImMxbmoJ9676Dcw=
