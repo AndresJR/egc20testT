@@ -19,9 +19,7 @@ install:
   - pip install codacy-coverage
 script:
   - cd decide
-  - coverage run --branch --source=. ./manage.py test --keepdb --with-xunit
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
+  - python ./manage.py test --keepdb
 deploy:
   app: 
   strategy: git
