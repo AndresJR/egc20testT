@@ -1,6 +1,3 @@
-import os
-import django_heroku
-
 ALLOWED_HOSTS = ["*"]
 
 # Modules in use, commented modules that you won't use
@@ -16,18 +13,18 @@ MODULES = [
     'voting',
 ]
 
-BASEURL =  'http://heroku-meet-travis.herokuapp.com'
+BASEURL =  'http://localhost:8000'
 
 APIS = {
-    'authentication': BASEURL,
-    'base': BASEURL,
-    'booth': BASEURL,
-    'census': BASEURL,
-    'mixnet': BASEURL,
-    'postproc': BASEURL,
-    'store': BASEURL,
-    'visualizer': BASEURL,
-    'voting': BASEURL,
+    'authentication': 'http://localhost:8000',
+    'base': 'http://localhost:8000',
+    'booth': 'http://localhost:8000',
+    'census': 'http://localhost:8000',
+    'mixnet': 'http://localhost:8000',
+    'postproc': 'http://localhost:8000',
+    'store': 'http://localhost:8000',
+    'visualizer': 'http://localhost:8000',
+    'voting': 'http://localhost:8000',
 }
 
 
@@ -45,5 +42,3 @@ DATABASES = {
 # number of bits for the key, all auths should use the same number of bits
 
 KEYBITS = 128
-
-django_heroku.settings(locals())
